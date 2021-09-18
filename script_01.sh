@@ -7,5 +7,5 @@ ECHO_SAMPLE(){
 }
 
 a=100
-echo $b
+echo " b values is $b"
 ECHO_SAMPLE
