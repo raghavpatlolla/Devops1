@@ -1,22 +1,22 @@
 help:
-	@echo "Specify the component name please."
-frontend:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+frontend:  ## install frontend
 	@sh components/frontend.sh
-mongodb:
+mongodb: ## install mongodb
 	@sh components/mongodb.sh
-catalogue:
+catalogue: ## install catalogue
 	@sh components/catalogue.sh
-redis:
+redis: ## install redis
 	@sh components/redis.sh
-user:
+user: ## install user
 	@sh components/user.sh
-cart:
+cart: ## install cart
 	@sh components/cart.sh
-mysql:
+mysql: ## install mysql
 	@sh components/mysql.sh
-shipping:
+shipping: ## install shipping
 	@sh components/shipping.sh
-rabbitmq:
+rabbitmq: ## install rabbitmq
 	@sh components/rabbitmq.sh
-payment:
+payment: ## install payment
 	@sh components/payment.sh
