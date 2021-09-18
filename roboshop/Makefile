@@ -1,5 +1,5 @@
 help:
-	@echo
+	@echo "Specify the component name please."
 frontend:
 	@sh components/frontend.sh
 mongodb:
