@@ -2,6 +2,10 @@
 #FUNCTIONS
 ECHO_SAMPLE(){
   echo "hi i am from a sample function ECHO_SAMPLE"
+  echo "value of a is $a"
+  b=200
 }
 
+a=100
+echo $b
 ECHO_SAMPLE
