@@ -12,7 +12,7 @@ fi
 
 
 
-  STATE_CODE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=frontend  | jq .Reservations[].Instances[].State.Code)
+  STATE_CODE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=frontend  | jq .Reservations[].Instances[].State.Code| xargs)
 
 echo ${STATE_CODE}
 
