@@ -12,13 +12,13 @@ fi
 
 
   INSTANCE_EXISTS=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${COMPONENT}  | jq .Reservations[])
-  STATE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=${COMPONENT}  | jq .Reservations[].Instances[].State.Name | xargs)
+  STATE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=frontend  | jq .Reservations[].Instances[].State.Code)
 
-echo ${INSTANCE_EXISTS}
 echo ${STATE}
 
-  if [ -z "${INSTANCE_EXISTS}" -o "$STATE" == "terminated"  ]; then
-    aws ec2 run-instances --launch-template LaunchTemplateId=${LID},Version=${LVER}  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]" | jq
+  if [ "$STATE" == "48"  ]; then
+   echo "Instance Terminated "
+   echo ${STATE}
   else
-    echo "Instance ${COMPONENT} already exists"
+    echo "Instance ${COMPONENT} not exists"
   fi
