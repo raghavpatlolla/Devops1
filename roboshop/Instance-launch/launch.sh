@@ -16,9 +16,9 @@ fi
 
 echo ${STATE}
 
-  if [ "$STATE" == "48"  ]; then
+   if [ "$STATE" == "48"  ]; then
    echo "Instance Terminated "
-   echo ${STATE}
-  else
+   fi
+   if [ "$STATE" != "48"  ]; then
     echo "Instance ${COMPONENT} not exists"
-  fi
+   fi
