@@ -26,8 +26,8 @@ HEAD  "Downloading data from Github"
 curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip" &>>$log
 STAT $?
 HEAD  "Unzipping  zip file"
-unzip /tmp/mongodb.zip  &>>$log
+cd /tmp && unzip -o mongodb.zip  &>>$log
 STAT $?
 HEAD  "Loading data to DB"
-mongo < /tmp/mongodb-main/catalogue.js && mongo < /tmp/mongodb-main/users.js &>>$log
+cd mongodb-main && mongo < catalogue.js && mongo < users.js &>>$log
 STAT $?
