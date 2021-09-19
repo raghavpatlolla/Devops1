@@ -7,5 +7,5 @@ amazon-linux-extras install nginx1&>>$log
 yum install nginx -y &>>$log
 STAT $?
 HEAD  "Enabling and starting NGINX"
-systemctl enable nginx && systemctl start nginx
+systemctl enable nginx && systemctl start nginx &>>$log
 STAT $?
