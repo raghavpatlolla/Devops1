@@ -16,5 +16,9 @@ fi
 echo  "$INSTANCE_STATE"
 borkstring=$(echo  "$INSTANCE_STATE"| sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
 arr=( $borkstring )
-echo $arr[@]
+for i in ${arr[@]}; do
+    # add a little native bash quote-stripping in there; without it,
+    # all your array elements will be wrapped in quotes.
+    echo ${i//\"}
+done
 
