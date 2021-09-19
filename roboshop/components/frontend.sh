@@ -3,7 +3,7 @@ source components/common.sh
 log=/tmp/roboshop.log
 rm -rf $log
 HEAD  "Installing NGINX"
-amazon-linux-extras install nginx1&>>$log
+amazon-linux-extras install nginx1 &>>$log
 yum install nginx -y &>>$log
 STAT $?
 HEAD  "Enabling and starting NGINX"
@@ -16,3 +16,7 @@ STAT $?
 HEAD  "Deploy frontend"
 cd /usr/share/nginx/html && rm -rf * && unzip /tmp/frontend.zip && mv frontend-main/* . && mv static/* . && rm -rf frontend-master README.md && mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$log
 STAT $?
+HEAD  "Restart  NGINX"
+systemctl restart nginx &>>$log
+STAT $?
+echo "done " >>$log
