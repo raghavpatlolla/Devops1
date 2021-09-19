@@ -9,16 +9,16 @@ exit 1
 
 fi
 
-allThreads=(1 2 4 8 16 32 64 128)
+
 
   INSTANCE_EXISTS=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${COMPONENT}  | jq .Reservations[])
-  STATE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=frontend  | jq .Reservations[].Instances[].State.Code)
+  STATE_CODE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=frontend  | jq .Reservations[].Instances[].State.Code)
 
 echo ${STATE}
 
 t_count=0
 exists_count=0
-   for  STATE in "${INSTANCE_EXISTS[@]}"; do
+   for  STATE in "${STATE_CODE[@]}"; do
      if [ "$STATE" == "48"  ]; then
    echo "Instance Terminated "
       t_count=t_count+1
