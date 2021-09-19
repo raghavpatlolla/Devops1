@@ -16,5 +16,5 @@ fi
 echo  "$INSTANCE_STATE"
 borkstring=$(echo  "$INSTANCE_STATE"| sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
 arr=( $borkstring )
-echo $arr
+echo $arr[@]
 
