@@ -12,13 +12,25 @@ fi
   INSTANCE_STATE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=${COMPONENT}  | jq .Reservations[].Instances[].State.Code | xargs )
 
 
-
+ t_count=0
+ exists_count=0
 echo  "$INSTANCE_STATE"
 borkstring=$(echo  "$INSTANCE_STATE"| sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
 arr=( $borkstring )
-for i in ${arr[@]}; do
+for STATE in ${arr[@]}; do
     # add a little native bash quote-stripping in there; without it,
     # all your array elements will be wrapped in quotes.
-    echo ${i//\"}
+    echo ${STATE//\"}
+    if [ "$STATE" == 48  ]; then
+   echo "Instance Terminated "
+      t_count=t_count+1
+      echo "$STATE"
+   else
+     echo "Instance ${COMPONENT} not exists "
+     exists_count=exists_count+1
+     echo "$STATE"
+   fi
 done
 
+echo " t_count $t_count"
+echo " exists_count $exists_count"
