@@ -14,9 +14,8 @@ HEAD  "Download frontend from github"
 curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>$log
 STAT $?
 HEAD  "Deploy frontend"
-cd /usr/share/nginx/html && rm -rf * && unzip /tmp/frontend.zip && mv frontend-main/* . && mv static/* . && rm -rf frontend-master README.md && mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$log
+cd /usr/share/nginx/html && rm -rf * && unzip /tmp/frontend.zip &>>$log && mv frontend-main/* . && mv static/* . && rm -rf frontend-master README.md && mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$log
 STAT $?
 HEAD  "Restart  NGINX"
 systemctl restart nginx &>>$log
 STAT $?
-echo "done " >>$log
