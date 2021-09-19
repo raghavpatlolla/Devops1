@@ -12,9 +12,9 @@ fi
   INSTANCE_STATE=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}"  | jq .Reservations[].Instances[].State.Name | xargs -n1)
 
 
-for row in $(echo "${INSTANCE_STATE}" | jq -r '.[] | @base64'); do
-    _jq() {
-     echo ${row} | base64 --decode | jq -r ${1}
-    }
-   echo $(_jq '.name')
-done
+
+echo  "$INSTANCE_STATE"
+borkstring=$(echo  "$INSTANCE_STATE"| sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
+arr=( $borkstring )
+echo $arr
+
