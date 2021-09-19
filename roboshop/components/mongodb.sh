@@ -3,12 +3,12 @@ source components/common.sh
 log=/tmp/roboshop.log
 rm -rf $log
 HEAD  "Setting up MongoDB repo "
-echo '[mongodb-org-5.0]
+echo "[mongodb-org-5.0]
 name=MongoDB Repository
 baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/5.0/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc'>/etc/yum.repos.d/mongodb-org-5.0.repo
+gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc">/etc/yum.repos.d/mongodb-org-5.0.repo
 STAT $?
 HEAD  "Installing  MongoDB  "
 yum install -y mongodb-org &>>$log
