@@ -16,3 +16,9 @@ fi
 
 echo ${INSTANCE_EXISTS}
 echo ${STATE}
+
+  if [ -z "${INSTANCE_EXISTS}" -o "$STATE" == "terminated"  ]; then
+    aws ec2 run-instances --launch-template LaunchTemplateId=${LID},Version=${LVER}  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]" | jq
+  else
+    echo "Instance ${COMPONENT} already exists"
+  fi
