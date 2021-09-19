@@ -13,4 +13,14 @@ INSTANCE_STATE=$(aws ec2 describe-instances     --filters "Name=tag:Name,Values=
 
 echo ${INSTANCE_STATE}
 
+if[ "${INSTANCE_STATE}" = "running" ];then
+  echo "its running"
+  fi
+if [ "${INSTANCE_STATE}" = "terminated"  ]; then
+ echo "its terminated"
+ fi
+if [ "${INSTANCE_STATE}" = "stopped"  ]; then
+ echo "its stopped"
+ fi
+
 ##aws ec2 run-instances --launch-template LaunchTemplateId=${LTId},Version=${LTVER} --tag-specifications "ResourceType=instance ,Tags=[{Key=Name,Value=${COMPONENT}}]"| jq
