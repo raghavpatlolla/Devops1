@@ -8,4 +8,9 @@ echo "COMPONENT input is Needed"
 exit 1
 
 fi
-aws ec2 run-instances --launch-template LaunchTemplateId=${LTId},Version=${LTVER} --tag-specifications "ResourceType=instance ,Tags=[{Key=Name,Value=${COMPONENT}}]"| jq
+
+INSTANCE_STATE=$(aws ec2 describe-instances     --filters "Name=tag:Name,Values=frontend" | jq .Reservations[].Instances[].State.Name|xargs -n1)
+
+echo ${INSTANCE_STATE}
+
+##aws ec2 run-instances --launch-template LaunchTemplateId=${LTId},Version=${LTVER} --tag-specifications "ResourceType=instance ,Tags=[{Key=Name,Value=${COMPONENT}}]"| jq
