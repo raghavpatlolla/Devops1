@@ -29,3 +29,6 @@ exists_count=0
      echo "$STATE"
    fi
 done
+
+echo " t_count $t_count"
+echo " exists_count $exists_count"
