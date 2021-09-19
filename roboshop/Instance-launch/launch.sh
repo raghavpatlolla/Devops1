@@ -13,7 +13,7 @@ INSTANCE_STATE=$(aws ec2 describe-instances     --filters "Name=tag:Name,Values=
 
 echo ${INSTANCE_STATE}
 
-if[ "${INSTANCE_STATE}" = "running" ];then
+if [ "${INSTANCE_STATE}" = "running" ];then
   echo "its running"
   fi
 if [ "${INSTANCE_STATE}" = "terminated"  ]; then
