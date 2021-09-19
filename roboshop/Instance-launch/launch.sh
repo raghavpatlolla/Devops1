@@ -9,15 +9,15 @@ exit 1
 
 fi
 
+  INSTANCE_STATE=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}"  | jq .Reservations[].Instances[].State.Name | xargs -n1)
+  if [ "${INSTANCE_STATE}" = "running" ]; then
+    echo "${COMPONENT} Instance already exists!!"
+  exit 0
+  fi
 
+  if [ "${INSTANCE_STATE}" = "stopped" ]; then
+    echo "${COMPONENT} Instance already exists!!"
+    exit 0
+  fi
 
-
-  STATE_CODE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=frontend  | jq .Reservations[].Instances[].State.Code| xargs)
-
-echo ${STATE_CODE}
-
-
-   for  STATE in "${STATE_CODE[@]}"; do
-     echo "now the state is ${STATE}"
-done
-
+aws ec2 run-instances --launch-template LaunchTemplateId=${LTId},Version=${LTVER} --tag-specifications "RsourceType=instance ,Tags=[{Key=Name,Value=${COMPONENT}}]"
