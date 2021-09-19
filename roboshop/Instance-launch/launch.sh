@@ -16,19 +16,8 @@ fi
 
 echo ${STATE_CODE}
 
-t_count=0
-exists_count=0
+
    for  STATE in "${STATE_CODE[@]}"; do
-     if [ "$STATE" == 48  ]; then
-   echo "Instance Terminated "
-      t_count=t_count+1
-      echo "$STATE"
-   else
-     echo "Instance ${COMPONENT} not exists "
-     exists_count=exists_count+1
-     echo "$STATE"
-   fi
+     echo "now the state is ${STATE}"
 done
 
-echo " t_count $t_count"
-echo " exists_count $exists_count"
