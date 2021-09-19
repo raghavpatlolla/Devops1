@@ -20,4 +20,4 @@ fi
     exit 0
   fi
 
-aws ec2 run-instances --launch-template LaunchTemplateId=${LTId},Version=${LTVER} --tag-specifications "RsourceType=instance ,Tags=[{Key=Name,Value=${COMPONENT}}]"
+aws ec2 run-instances --launch-template LaunchTemplateId=${LTId},Version=${LTVER} --tag-specifications "ResourceType=instance ,Tags=[{Key=Name,Value=${COMPONENT}}]"
