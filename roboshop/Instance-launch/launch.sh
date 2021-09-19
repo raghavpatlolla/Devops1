@@ -12,8 +12,7 @@ fi
 INSTANCE_STATE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=${COMPONENT}  | jq .Reservations[].Instances[].State.Code | xargs )
 ###INSTANCE_STATE is JSON array
 ###Converting a JSON array to a bash array
-t_count=0
-exists_count=0
+#### strip out all the things you don't want - square brackets and commas
 STATE_STRING=$(echo  "$INSTANCE_STATE"| sed -e 's/\[ //g' -e 's/\ ]//g' -e 's/\,//g')
 arr=( $STATE_STRING)
 ## arr is bash array
@@ -24,6 +23,8 @@ arr=( $STATE_STRING)
 ##48 : terminated
 ##64 : stopping
 ##80 : stopped
+t_count=0  # terminated state instance count
+exists_count=0 #Other instance state count
 for STATE in ${arr[@]}; do
      if [ "$STATE" == 48  ]; then
       t_count=`expr $t_count + 1`
