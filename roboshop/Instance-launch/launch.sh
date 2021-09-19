@@ -11,15 +11,15 @@ fi
 
 
 
-  INSTANCE_EXISTS=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${COMPONENT}  | jq .Reservations[])
+
   STATE_CODE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=frontend  | jq .Reservations[].Instances[].State.Code)
 
-echo ${STATE}
+echo ${STATE_CODE}
 
 t_count=0
 exists_count=0
    for  STATE in "${STATE_CODE[@]}"; do
-     if [ "$STATE" == "48"  ]; then
+     if [ "$STATE" == 48  ]; then
    echo "Instance Terminated "
       t_count=t_count+1
       echo "$STATE"
