@@ -29,5 +29,5 @@ HEAD  "Unzipping  zip file"
 cd /tmp && unzip -o mongodb.zip  &>>$log
 STAT $?
 HEAD  "Loading data to DB"
-cd mongodb-main && mongo < catalogue.js && mongo < users.js &>>$log
+cd mongodb-main && mongo < catalogue.js &>>$log && mongo < users.js &>>$log
 STAT $?
