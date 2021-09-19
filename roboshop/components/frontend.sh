@@ -11,8 +11,8 @@ systemctl enable nginx && systemctl start nginx &>>$log
 STAT $?
 
 HEAD  "Download frontend from github"
-curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
+curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>$log
 STAT $?
 HEAD  "Deploy frontend"
-cd /usr/share/nginx/html && rm -rf * && unzip /tmp/frontend.zip && mv frontend-main/* . && mv static/* . && rm -rf frontend-master README.md && mv localhost.conf /etc/nginx/default.d/roboshop.conf
+cd /usr/share/nginx/html && rm -rf * && unzip /tmp/frontend.zip && mv frontend-main/* . && mv static/* . && rm -rf frontend-master README.md && mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$log
 STAT $?
