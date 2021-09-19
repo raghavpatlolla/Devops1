@@ -9,7 +9,7 @@ exit 1
 
 fi
 
-INSTANCE_STATE=$(aws ec2 describe-instances     --filters "Name=tag:Name,Values=frontend" | jq .Reservations[].Instances[].State.Name|xargs -n1)
+INSTANCE_STATE=$(aws ec2 describe-instances     --filters "Name=tag:Name,Values=${COMPONENT}" | jq .Reservations[].Instances[].State.Name|xargs -n1)
 
 echo ${INSTANCE_STATE}
 
