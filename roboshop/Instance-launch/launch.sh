@@ -21,11 +21,11 @@ for STATE in ${arr[@]}; do
     echo ${STATE//\"}
     if [ "$STATE" == 48  ]; then
    echo "Instance Terminated "
-      t_count=`expr $t_count + $i`
+      t_count=`expr $t_count + 1`
       echo "$STATE"
    else
      echo "Instance ${COMPONENT} not exists "
-     exists_count=`expr $exists_count + $i`
+     exists_count=`expr $exists_count + 1`
      echo "$STATE"
    fi
 done
