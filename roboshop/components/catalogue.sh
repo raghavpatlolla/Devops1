@@ -24,7 +24,7 @@ STAT $?
 HEAD  "Download catalogue app from Github "
 curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip"&>>$log
 STAT $?
-HEAD  "Download catalogue app from Github "
+HEAD  "Extracting and Setting up  catalogue app  "
 cd /home/roboshop && rm -rf catalogue && unzip /tmp/catalogue.zip &>>$log && mv catalogue-main catalogue
 STAT $?
 
