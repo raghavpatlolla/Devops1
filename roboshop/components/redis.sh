@@ -16,5 +16,5 @@ sed -i -e "s/127.0.0.1/0.0.0.0/" /etc/redis.conf  &>>$log &&
 sed -i -e "s/127.0.0.1/0.0.0.0/"  /etc/redis/redis.conf  &>>$log
 STAT $?
 HEAD  "Start Redis Database"
-systemctl enable redis && systemctl start redis &>>log
+systemctl enable redis &>>log && systemctl start redis &>>log
 STAT $?
