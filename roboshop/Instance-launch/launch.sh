@@ -9,6 +9,14 @@ exit 1
 
 fi
 
+DNS_UPDATE(){
+
+  PRIVATE_IP=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=frontend | jq .Reservations[].Instances[].PrivateIpAddress|xargs -n1)
+  sed -e "s/COMPONENT/${COMPONENT}" -e "s/PRIVATE_IP/${PRIVATE_IP}" DNS_update_record.json > /tmp/DNS_update_record.json
+  aws route53 change-resource-record-sets --hosted-zone-id Z032055624YJMWSH9HS8R --change-batch file:///tmp/DNS_update_record.json|jq
+}
+
+
 INSTANCE_STATE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=${COMPONENT}  | jq .Reservations[].Instances[].State.Code | xargs )
 ###INSTANCE_STATE is JSON array
 ###Converting a JSON array to a bash array
@@ -35,8 +43,14 @@ done
 
 if [ "$exists_count" -gt 0 ]; then
 echo "Instance ${COMPONENT} already exists "
+DNS_UPDATE
 exit 0
 else
   echo "Instance ${COMPONENT} not exists...creating ${COMPONENT} instance"
   aws ec2 run-instances --launch-template LaunchTemplateId=${LTId},Version=${LTVER} --tag-specifications "ResourceType=instance ,Tags=[{Key=Name,Value=${COMPONENT}}]"
+  aws ec2 wait instance-exists   --filters Name=tag:Name,Values=${COMPONENT}  | jq .Reservations[].Instances[].InstanceId
+  DNS_UPDATE
 fi
+
+
+
