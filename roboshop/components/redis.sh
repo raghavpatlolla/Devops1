@@ -7,7 +7,7 @@ amazon-linux-extras install epel -y &>>$log
 STAT $?
 HEAD  "Installing Redis "
 yum install epel-release yum-utils -y &>>$log &&
-yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y &>>$log&&
+rpm -qa | grep remi-release-7.rpm  || yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y &>>$log&&
 yum-config-manager --enable remi &>>$log&&
 yum install redis -y &>>$log
 STAT $?
