@@ -14,13 +14,18 @@ yum install gcc-c++ make &>>$log
 STAT $?
 
 HEAD  "Adding user roboshop "
+id roboshop &>>$log
+if [ $? -eq 0 ] ; then
+  echo "user roboshop already exists"
+ else
 useradd roboshop &>>$log
+fi
 STAT $?
 HEAD  "Download catalogue app from Github "
 curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip"&>>$log
 STAT $?
 HEAD  "Download catalogue app from Github "
-cd /home/roboshop && unzip /tmp/catalogue.zip &>>$log && mv catalogue-main catalogue
+cd /home/roboshop && rm -rf catalogue && unzip /tmp/catalogue.zip &>>$log && mv catalogue-main catalogue
 STAT $?
 
 HEAD  "Installing NodeJS dependencies"
