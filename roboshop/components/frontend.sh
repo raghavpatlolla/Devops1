@@ -3,7 +3,7 @@ source components/common.sh
 log=/tmp/roboshop.log
 rm -rf $log
 HEAD  "Installing NGINX"
-amazon-linux-extras install nginx1 &>>$log
+amazon-linux-extras install nginx1 -y &>>$log
 yum install nginx -y &>>$log
 STAT $?
 HEAD  "Enabling and starting NGINX"
