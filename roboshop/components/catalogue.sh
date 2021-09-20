@@ -35,3 +35,12 @@ STAT $?
 HEAD  "Fixing the permission issue"
 chown -R  roboshop:roboshop /home/roboshop/ &>>$log
 STAT $?
+
+HEAD  "Update Mongodb DNS record in systemd.service"
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/catalogue/systemd.service &>>$log && mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service &>>$log
+STAT $?
+HEAD  "Setup systemd.service"
+ systemctl daemon-reload &&
+ systemctl start catalogue &>>$log &&
+ systemctl enable catalogue  &>>$log
+STAT $?
