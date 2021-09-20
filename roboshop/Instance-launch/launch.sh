@@ -37,6 +37,6 @@ if [ "$exists_count" -gt 0 ]; then
 echo "Instance ${COMPONENT} already exists "
 exit 0
 else
-  echo "Instance ${COMPONENT} not exists "
+  echo "Instance ${COMPONENT} not exists...creating ${COMPONENT} instance"
   aws ec2 run-instances --launch-template LaunchTemplateId=${LTId},Version=${LTVER} --tag-specifications "ResourceType=instance ,Tags=[{Key=Name,Value=${COMPONENT}}]"
 fi
