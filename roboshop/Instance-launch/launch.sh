@@ -8,7 +8,8 @@ echo "COMPONENT input is Needed"
 exit 1
 
 fi
-
+#set hostname
+hostnamectl set-hostname  "${COMPONENT}"
 DNS_UPDATE(){
 
   PRIVATE_IP=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=frontend | jq .Reservations[].Instances[].PrivateIpAddress|xargs -n1)
