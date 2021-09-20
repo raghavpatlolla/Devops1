@@ -16,7 +16,7 @@ STAT $?
 HEAD  "Adding user roboshop "
 id roboshop &>>$log
 if [ $? -eq 0 ] ; then
-  echo "user roboshop already exists"
+  echo "user roboshop already exists"&>>$log
  else
 useradd roboshop &>>$log
 fi
