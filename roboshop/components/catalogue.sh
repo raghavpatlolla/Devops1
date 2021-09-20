@@ -10,7 +10,7 @@ HEAD  "Installing nodejs"
 yum install -y nodejs &>>$log
 STAT $?
 HEAD  "Installing gcc-c++ make "
-yum install gcc-c++ make &>>$log
+yum install gcc-c++ make -y &>>$log
 STAT $?
 
 HEAD  "Adding user roboshop "
@@ -32,3 +32,6 @@ HEAD  "Installing NodeJS dependencies"
 cd /home/roboshop/catalogue && npm install --unsafe-perm &>>$log
 STAT $?
 
+HEAD  "Fixing the permission issue"
+chown -R  roboshop:roboshop /home/roboshop/ &>>$log
+STAT $?
