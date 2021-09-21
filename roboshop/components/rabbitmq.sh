@@ -3,7 +3,7 @@ source components/common.sh
 log=/tmp/roboshop.log
 rm -rf $log
 HEAD  "Setting up rabbitmq pre-requisites "
-yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erlang-23.2.6-1.el7.x86_64.rpm -y  &>>$log
+rpm -qa | grep erlang  &>>$log || yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erlang-23.2.6-1.el7.x86_64.rpm -y  &>>$log
 STAT $?
 
 HEAD  "YUM repositories for RabbitMQ"
