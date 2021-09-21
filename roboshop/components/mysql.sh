@@ -16,4 +16,4 @@ HEAD  "Installing  MySQL"
 yum remove mariadb-libs -y  &>>$log && yum install mysql-community-server -y  &>>$log
 STAT $?
 
-SET_SYSTEMD_SERVICE "mysql"
+SET_SYSTEMD_SERVICE "mysqld"
