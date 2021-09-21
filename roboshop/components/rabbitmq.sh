@@ -14,7 +14,11 @@ HEAD  "Install RabbitMQ"
 yum install rabbitmq-server -y  &>>$log
 STAT $?
 
-SET_SYSTEMD_SERVICE "rabbitmq-server"
+HEAD  "Setup systemd.service"
+ systemctl daemon-reload &&
+ systemctl start rabbitmq-server &>>$log &&
+ systemctl enable rabbitmq-server &>>$log
+STAT $?
 
 HEAD  "Create RabbitMQ application user"
 rabbitmqctl add_user roboshop roboshop123 &>>$log && rabbitmqctl set_user_tags roboshop administrator &>>$log  && rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$log
