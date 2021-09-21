@@ -62,3 +62,10 @@ HEAD  "Setup systemd.service"
 STAT $?
 }
 
+SET_SYSTEMD_SERVICE(){
+  HEAD  "Setup systemd.service"
+ systemctl daemon-reload &&
+ systemctl start $1 &>>$log &&
+ systemctl enable $1  &>>$log
+STAT $?
+}

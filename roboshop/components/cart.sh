@@ -5,3 +5,4 @@ rm -rf $log
 
 ADD_USER
 NODEJS "cart"
+SET_SYSTEMD_SERVICE "cart"
