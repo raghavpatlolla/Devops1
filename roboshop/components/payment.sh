@@ -1,0 +1,26 @@
+#!/bin/bash
+source components/common.sh
+log=/tmp/roboshop.log
+rm -rf $log
+
+
+
+HEAD  "Installing PIP"
+yum install python3-pip -y &>>$log
+pip3 install pip --upgrade &>>$log
+STAT $?
+
+ADD_USER
+
+HEAD  "Download payment app from Github "
+curl -s -L -o /tmp/payment.zip "https://github.com/roboshop-devops-project/payment/archive/main.zip"&>>$log
+STAT $?
+HEAD  "Extracting and Setting up  payment app  "
+cd /home/roboshop && rm -rf payment && unzip /tmp/payment.zip &>>$log && mv payment-main payment
+STAT $?
+HEAD  "Download payment app from Github "
+cd /home/roboshop/payment &&
+pip3 install -r requirements.txt  &>>$log
+STAT $?
+
+SET_SYSTEMD_SERVICE "payment"
