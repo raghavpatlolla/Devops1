@@ -57,7 +57,7 @@ STAT $?
 
 SET_SYSTEMD_SERVICE(){
 HEAD  "Setup systemd.service"
-sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/'   -e 's/REDIS_ENDPOINT/redis.roboshop.internal/'  -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/'  -e 's/CARTENDPOINT/cart.roboshop.internal/'  -e 's/DBHOST/mysql.roboshop.internal/'  /home/roboshop/$1/systemd.service && mv /home/roboshop/$1/systemd.service /etc/systemd/system/$1.service
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/'   -e 's/REDIS_ENDPOINT/redis.roboshop.internal/'  -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/'  -e 's/CART_ENDPOINT/cart.roboshop.internal/'  -e 's/DBHOST/mysql.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/'  /home/roboshop/$1/systemd.service && mv /home/roboshop/$1/systemd.service /etc/systemd/system/$1.service
 STAT $?
 HEAD  "Setup systemd.service"
  systemctl daemon-reload &&
