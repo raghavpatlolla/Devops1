@@ -19,8 +19,10 @@ HEAD  "Setup systemd.service"
  systemctl start rabbitmq-server &>>$log &&
  systemctl enable rabbitmq-server &>>$log
 STAT $?
-
+rabbitmqctl list_users |grep -i roboshop &>>$log
+if [ $? -ne 0 ]; then
 HEAD  "Create RabbitMQ application user"
 rabbitmqctl add_user roboshop roboshop123 &>>$log && rabbitmqctl set_user_tags roboshop administrator &>>$log  && rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$log
+fi
 STAT $?
 

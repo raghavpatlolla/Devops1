@@ -18,7 +18,10 @@ STAT $?
 HEAD  "Extracting and Setting up  payment app  "
 cd /home/roboshop && rm -rf payment && unzip /tmp/payment.zip &>>$log && mv payment-main payment
 STAT $?
-HEAD  "Download payment app from Github "
+HEAD  "Fixing the permission issue"
+chown -R  roboshop:roboshop /home/roboshop/ &>>$log
+STAT $?
+HEAD  "Installing requirements using pip3"
 cd /home/roboshop/payment &&
 pip3 install -r requirements.txt  &>>$log
 STAT $?
