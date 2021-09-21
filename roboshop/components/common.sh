@@ -4,10 +4,10 @@ HEAD(){
 
 STAT(){
   if [ $1 -eq 0 ]; then
-    echo -e "\e[1;32m  printf "%-10s%-4s"  SUCCESS \e[0m"
+    echo -e "\e[1;32m  SUCCESS \e[0m"
 
   else
-    echo -e "\e[1;31m  printf "%-10s%-4s"  FAILED \e[0m"
+    echo -e "\e[1;31m   FAILED \e[0m"
     echo -e "\e[1;33m Check the log for more details...Log-file: /tmp/roboshop.log\e[0m"
     exit 1
   fi
