@@ -26,7 +26,7 @@ USER_ID=$(id -u roboshop)
 GRP_ID=$(id -g roboshop)
 
 HEAD  "Update uid and gid in payment.ini"
-sed -i -e "s/uid/ c uid={USER_ID" -e "s/gid/ c gid={GRP_ID" /home/roboshop/payment/payment.ini &>>$log
+sed -i -e "/uid/ c uid={USER_ID" -e "/gid/ c gid={GRP_ID" /home/roboshop/payment/payment.ini &>>$log
 STAT $?
 
 
