@@ -34,5 +34,5 @@ curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/a
 cd /tmp &&
 unzip mysql.zip  &>>$log&&
 cd mysql-main
-mysql -u root -ppassword <shipping.sql  &>>$log
+mysql -u root -pRoboShop@1 <shipping.sql  &>>$log
 STAT $?
