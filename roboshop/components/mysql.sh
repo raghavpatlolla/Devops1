@@ -28,3 +28,11 @@ HEAD  "Reset  MySQL password"
 mysql --connect-expired-password -u root -p"${DEF_PASSWD}" </tmp/db.sql &>>$log
 STAT $?
 fi
+
+HEAD  "Download and load schema into the database"
+curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &&
+cd /tmp &&
+unzip mysql.zip  &>>$log&&
+cd mysql-main
+mysql -u root -ppassword <shipping.sql  &>>$log
+STAT $?
