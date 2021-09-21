@@ -23,13 +23,12 @@ HEAD  "Fixing the permission issue"
 chown -R  roboshop:roboshop /home/roboshop/ &>>$log
 STAT $?
 
-USER_ID=$(id -u roboshop)
-GRP_ID=$(id -g roboshop)
+  USER_ID=$(id -u roboshop)
+  GROUP_ID=$(id -g roboshop)
 
-HEAD  "Update uid and gid in payment.ini"
-sed -i -e "/uid/ c uid={USER_ID}" -e "/gid/ c {GRP_ID}" /home/roboshop/payment/payment.ini &>>$log
-STAT $?
-
+  HEAD "Update App Configuration"
+  sed -i -e "/uid/ c uid=${USER_ID}" -e "/gid/ c gid=${GROUP_ID}" /home/roboshop/payment/payment.ini &>>$log
+  STAT $?
 
 HEAD  "Installing requirements using pip3"
 cd /home/roboshop/payment &&
