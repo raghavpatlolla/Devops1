@@ -18,3 +18,5 @@ HEAD  "Downloading from Github "
   mvn clean package &>>$log &&
   mv target/shipping-1.0.jar  /home/roboshop/shipping/shipping.jar &>>$log
  STAT $?
+
+SET_SYSTEMD_SERVICE "shipping"
