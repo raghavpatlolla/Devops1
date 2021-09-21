@@ -31,8 +31,8 @@ fi
 
 HEAD  "Download and load schema into the database"
 curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &&
-cd /tmp &&
+cd /tmp && rm -rf mysql-main &&
 unzip mysql.zip  &>>$log&&
-cd mysql-main
+cd mysql-main &&
 mysql -u root -pRoboShop@1 <shipping.sql  &>>$log
 STAT $?
