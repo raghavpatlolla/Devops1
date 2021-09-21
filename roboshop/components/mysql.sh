@@ -20,9 +20,11 @@ SET_SYSTEMD_SERVICE "mysqld"
 
 DEF_PASSWD=$(grep "A temporary password is" /var/log/mysqld.log|awk '{print $NF}')
 
+echo show databases|mysql -u root -pRoboShop@1 &>>$log
+if [ $? -ne 0 ] ; then
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';
 uninstall plugin validate_password;" > /tmp/db.sql
-
 HEAD  "Reset  MySQL password"
 mysql --connect-expired-password -u root -p"${DEF_PASSWD}" </tmp/db.sql &>>$log
 STAT $?
+fi
