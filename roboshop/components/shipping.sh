@@ -1,8 +1,12 @@
 #!/bin/bash
-echo "Installing Shipping"
-
-
-HEAD  "Downloading from Github password"
+source components/common.sh
+log=/tmp/roboshop.log
+rm -rf $log
+HEAD  "Installing Maven"
+yum install maven -y &>>$log
+STAT $?
+ADD_USER
+HEAD  "Downloading from Github "
  curl -s -L -o /tmp/shipping.zip "https://github.com/roboshop-devops-project/shipping/archive/main.zip" &&
  unzip /tmp/shipping.zip  &>>$log &&
  mv shipping-main shipping &&
@@ -10,8 +14,6 @@ HEAD  "Downloading from Github password"
   STAT $?
 
  HEAD  "Maven build "
-  mvn clean package &>>$log
-  mv target/shipping-1.0.jar ./shipping.jar
- issue  : jar shud be  in /home/roboshop/shipping/shipping.jar
-
+  mvn clean package &>>$log &&
+  mv target/shipping-1.0.jar  /home/roboshop/shipping/shipping.jar &>>$log
  STAT $?
