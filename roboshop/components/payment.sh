@@ -6,7 +6,8 @@ rm -rf $log
 
 
 HEAD  "Installing PIP"
-yum install python3-pip -y &>>$log
+ yum install python36 gcc python3-devel -y &>>$log &&
+yum install python3-pip -y &>>$log &&
 pip3 install pip --upgrade &>>$log
 STAT $?
 
