@@ -17,3 +17,12 @@ yum remove mariadb-libs -y  &>>$log && yum install mysql-community-server -y  &>
 STAT $?
 
 SET_SYSTEMD_SERVICE "mysqld"
+
+DEF_PASSWD=$(grep "A temporary password is" /var/log/mysqld.log|awk '{print $NF}')
+
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
+uninstall plugin validate_password;" > /tmp/db.sql
+
+HEAD  "Reset  MySQL password"
+mysql -u root -p"${DEF_PASSWD}" </tmp/db.sql &>>$log
+STAT $?
