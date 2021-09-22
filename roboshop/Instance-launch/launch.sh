@@ -6,8 +6,8 @@ LTId=lt-0d5e63f293cae8014
 if [ -z "${COMPONENT}" ]; then
 echo "COMPONENT input is Needed"
 exit 1
-
 fi
+
 #set hostname
 hostnamectl set-hostname  "${COMPONENT}"
 DNS_UPDATE(){
@@ -17,7 +17,7 @@ DNS_UPDATE(){
   aws route53 change-resource-record-sets --hosted-zone-id Z032055624YJMWSH9HS8R --change-batch file:///tmp/DNS_update_record.json|jq
 }
 
-
+INSTANCE_CREATE() {
 INSTANCE_STATE=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=${COMPONENT}  | jq .Reservations[].Instances[].State.Code | xargs )
 ###INSTANCE_STATE is JSON array
 ###Converting a JSON array to a bash array
@@ -45,7 +45,7 @@ done
 if [ "$exists_count" -gt 0 ]; then
 echo "Instance ${COMPONENT} already exists "
 DNS_UPDATE
-exit 0
+return 0
 else
   echo "Instance ${COMPONENT} not exists...creating ${COMPONENT} instance"
   aws ec2 run-instances --launch-template LaunchTemplateId=${LTId},Version=${LTVER} --tag-specifications "ResourceType=instance ,Tags=[{Key=Name,Value=${COMPONENT}}]"
@@ -53,5 +53,14 @@ else
   DNS_UPDATE
 fi
 
+}
 
+if [ "${COMPONENT}" == "all"] ; then
+  for component in frontend mongodb catalogue redis user cart mysql shipping rabbitmq payment ; do
+    COMPONENT=${component}
+    INSTANCE_CREATE "${COMPONENT}"
+  done
+else
+  INSTANCE_CREATE "${COMPONENT}"
+fi
 
