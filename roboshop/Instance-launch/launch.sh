@@ -55,7 +55,7 @@ fi
 
 }
 
-if [ "${COMPONENT}" == "all"] ; then
+if [ "${COMPONENT}" == "all" ]; then
   for component in frontend mongodb catalogue redis user cart mysql shipping rabbitmq payment ; do
     COMPONENT=${component}
     INSTANCE_CREATE "${COMPONENT}"
